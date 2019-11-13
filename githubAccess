@@ -1,14 +1,22 @@
+import requests
 import json
-import urllib3
-#from github import Github
+from github import Github
 
-http = urllib3.PoolManager()
-req = http.Request(GET, "https://api.github.com/repos/torvalds/linux/commits")
-opener = urllib3.build_opener()
-f = opener.open(req)
-json = json.loads(f.read())
+count = 0
+mem = 0
 
-print("Jason")
-print (json)
+g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d") #take out token when saving to github!!!
 
-#g = Github(c1e713fb39625fecfeef7d7224b69fa0343b2c8d)
+org = g.get_organization("Facebook")
+members = org.get_members()
+repos = org.get_repos()
+
+print("Repos")
+for repo in org.get_repos():
+    print (repo.name, count)
+    count = count + 1
+
+print("Members")
+for member in org.get_members():
+    print(member.name, mem)
+    mem = mem + 1
