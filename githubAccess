@@ -10,6 +10,7 @@ g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d") #take out token when savi
 org = g.get_organization("Facebook")
 members = org.get_members()
 repos = org.get_repos()
+stars = repos.stargazers_count
 
 print("Repos")
 for repo in org.get_repos():
@@ -20,3 +21,5 @@ print("Members")
 for member in org.get_members():
     print(member.name, mem)
     mem = mem + 1
+
+print("Stars", stars)
