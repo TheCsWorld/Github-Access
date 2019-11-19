@@ -7,19 +7,30 @@ mem = 0
 
 g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d") #take out token when saving to github!!!
 
-org = g.get_organization("Facebook")
-members = org.get_members()
-repos = org.get_repos()
-stars = repos.stargazers_count
+repo = g.get_repo("torvalds/linux")
+repo.get_contributors()
+#repo.get_topics()
+#open_issues = repo.get_issues(state='open')
+#for issue in open_issues:
+#   print(issue)
+#    count = count + 1
 
-print("Repos")
-for repo in org.get_repos():
-    print (repo.name, count)
-    count = count + 1
+print (count)
 
-print("Members")
-for member in org.get_members():
-    print(member.name, mem)
-    mem = mem + 1
 
-print("Stars", stars)
+#org = g.get_organization("Facebook")
+#members = org.get_members()
+#repos = org.get_repos()
+#stars = repos.stargazers_count
+
+#print("Repos")
+#for repo in org.get_repos():
+#    print (repo.name, count)
+#    count = count + 1
+
+#print("Members")
+#for member in org.get_members():
+#    print(member.name, mem)
+#    mem = mem + 1
+
+#print("Stars", stars)
