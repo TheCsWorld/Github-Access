@@ -1,36 +1,32 @@
 import requests
 import json
+import pandas
+import datetime
 from github import Github
+from flask import Flask
 
 count = 0
-mem = 0
+d1 = datetime.datetime(2018, 12, 1)
+# twbs/bootstrap
+# nodejs/node
+g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")  # take out token when saving to github!!!
 
-g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d") #take out token when saving to github!!!
+repo = g.get_repo("nodejs/node")
+# commits = repo.get_commits()
+#get authors and the dates of their commits
+for commit in repo.get_commits():
+    author_date = commit.commit.author.date
+    if author_date > d1:
+        try:
+            author_name = commit.author.name
 
-repo = g.get_repo("torvalds/linux")
-repo.get_contributors()
-#repo.get_topics()
-#open_issues = repo.get_issues(state='open')
-#for issue in open_issues:
-#   print(issue)
-#    count = count + 1
+            print(author_name, author_date, count)
+            count += 1
+        except AttributeError:
+            print("None", author_date, count)
+            count += 1
+    #else:
+    #    break
 
-print (count)
-
-
-#org = g.get_organization("Facebook")
-#members = org.get_members()
-#repos = org.get_repos()
-#stars = repos.stargazers_count
-
-#print("Repos")
-#for repo in org.get_repos():
-#    print (repo.name, count)
-#    count = count + 1
-
-#print("Members")
-#for member in org.get_members():
-#    print(member.name, mem)
-#    mem = mem + 1
-
-#print("Stars", stars)
+# for contributor in repo.get_contributors():
+#        print(contributor.name)
