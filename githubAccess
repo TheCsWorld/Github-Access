@@ -5,28 +5,39 @@ import datetime
 from github import Github
 from flask import Flask
 
-count = 0
-d1 = datetime.datetime(2018, 12, 1)
+commit_total = 0
+author_name = "a"
+d1 = datetime.datetime(2019, 1, 1)
 # twbs/bootstrap
 # nodejs/node
 g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")  # take out token when saving to github!!!
 
 repo = g.get_repo("nodejs/node")
 # commits = repo.get_commits()
-#get authors and the dates of their commits
-for commit in repo.get_commits():
-    author_date = commit.commit.author.date
-    if author_date > d1:
+# get commits made
+# for commit in repo.get_commits():
+#    author_date = commit.commit.author.date
+#    if author_date > d1:
+#        try:
+#            author_name = commit.author.name
+#            print(author_name, author_date, count)
+#        except AttributeError:
+#            print("None", author_date, count)
+
+for contributor in repo.get_contributors():
+    for commit in repo.get_commits():
+        author_date = commit.commit.author.date
         try:
-            author_name = commit.author.name
-
-            print(author_name, author_date, count)
-            count += 1
+            author_name = commit.committer.login
+            if author_date >= d1:
+                if contributor.login == author_name:
+                    commit_total += 1
+                    print(author_name, author_date, commit_total)
+            else:
+                break
         except AttributeError:
-            print("None", author_date, count)
-            count += 1
-    #else:
-    #    break
-
-# for contributor in repo.get_contributors():
-#        print(contributor.name)
+            # author_name = "None"
+            if author_date >= d1:
+                commit_total += 1
+                print(",", author_date, commit_total)
+    commit_total = 0
