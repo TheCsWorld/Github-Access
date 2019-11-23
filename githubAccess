@@ -1,18 +1,22 @@
 import requests
 import json
-import pandas
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 import datetime
 from github import Github
 from flask import Flask
 
 commit_total = 0
 author_name = "a"
-d1 = datetime.datetime(2019, 1, 1)
+d1 = datetime.datetime(2018, 11, 1)
 # twbs/bootstrap
 # nodejs/node
+#
 g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")  # take out token when saving to github!!!
 
-repo = g.get_repo("nodejs/node")
+repo = g.get_repo("PyGithub/PyGithub")
 # commits = repo.get_commits()
 # get commits made
 # for commit in repo.get_commits():
@@ -24,15 +28,29 @@ repo = g.get_repo("nodejs/node")
 #        except AttributeError:
 #            print("None", author_date, count)
 
-for contributor in repo.get_contributors():
+df = pd.DataFrame(columns=["Author", "Date", "Commit Count"])
+users = ['FFY00', 'Ferada', 'Hanaasagi', 'KevinRickard', 'TechnicalPirate',
+ 'TomasTomecek', 'YakDriver', 'adambaratz', 'alexmusa', 'bachp', 'blatinier',
+ 'brownierin', 'bycEEE', 'cclauss', 'chanukov', 'chillipeper', 'cuichenli',
+ 'fleeto', 'gjabouley-invn', 'hamelsmu', 'isouza-daitan', 'jajajasalu2',
+ 'jakewilkins', 'jdufresne', 'jklingen92', 'jkufro', 'jvanbrunschot',
+ 'mabrowning', 'mstuttgart', 'murphyzhao', 'nagapavan', 'ohmkay',
+ 'physikerwelt', 'res0nance', 's-t-e-v-e-n-k', 'sfdye', 'sharkykh', 'shibasisp',
+ 'singh811', 'suryasr007', 'zume2020']
+
+#repo.get_contributors()
+for user in users:
+  #  print(user)
     for commit in repo.get_commits():
         author_date = commit.commit.author.date
         try:
-            author_name = commit.committer.login
-            if author_date >= d1:
-                if contributor.login == author_name:
+            author_name = commit.author.login
+            if author_date > d1:
+                if user == author_name:
                     commit_total += 1
                     print(author_name, author_date, commit_total)
+                    new_row = {'Author': author_name, "Date": author_date, "Commit Count": commit_total}
+                    df = df.append(new_row, ignore_index=True)
             else:
                 break
         except AttributeError:
@@ -41,3 +59,9 @@ for contributor in repo.get_contributors():
                 commit_total += 1
                 print(",", author_date, commit_total)
     commit_total = 0
+
+# print(np.unique(users))
+
+fig = px.line(df, x="Date", y="Commit Count",
+              line_group="Author")
+fig.show()
