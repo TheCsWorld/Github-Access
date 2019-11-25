@@ -3,6 +3,8 @@ import json
 import pandas as pd
 import numpy as np
 import plotly.express as px
+from plotly.offline import plot
+import psutil as pt
 import plotly.graph_objects as go
 import datetime
 from github import Github
@@ -64,4 +66,7 @@ for user in users:
 
 fig = px.line(df, x="Date", y="Commit Count",
               line_group="Author")
-fig.show()
+
+plot(fig)
+#fig.write_image("pictures/fig1.png")
+#fig.show()
