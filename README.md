@@ -1,7 +1,7 @@
 # Github-Access-and-Social-Graph
 Chloe Conneely 17323080
 
-![Graph 1 Year]("Graph 1 year.png")
+![Graph 1 Year](https://github.com/TheCsWorld/Github-Access/blob/master/Graph%201%20year.png)
 
 This graph displays the contributors to a the PyGithub repo over the period 1st November 2018 to 26th November 2019.
 
