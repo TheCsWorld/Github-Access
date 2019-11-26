@@ -1,47 +1,24 @@
-import requests
-import json
 import pandas as pd
-import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
 from plotly.offline import plot
-import psutil as pt
 import plotly.graph_objects as go
 import datetime
 from github import Github
-from flask import Flask
 
 commit_total = 0
 author_name = "a"
 d1 = datetime.datetime(2018, 11, 1)
 # twbs/bootstrap
 # nodejs/node
-#
-g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")  # take out token when saving to github!!!
+g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")
 
 repo = g.get_repo("PyGithub/PyGithub")
-# commits = repo.get_commits()
-# get commits made
-# for commit in repo.get_commits():
-#    author_date = commit.commit.author.date
-#    if author_date > d1:
-#        try:
-#            author_name = commit.author.name
-#            print(author_name, author_date, count)
-#        except AttributeError:
-#            print("None", author_date, count)
 
-df = pd.DataFrame(columns=["Author", "Date", "Commits"])
-users = ['FFY00', 'Ferada', 'Hanaasagi', 'KevinRickard', 'TechnicalPirate',
- 'TomasTomecek', 'YakDriver', 'adambaratz', 'alexmusa', 'bachp', 'blatinier',
- 'brownierin', 'bycEEE', 'cclauss', 'chanukov', 'chillipeper', 'cuichenli',
- 'fleeto', 'gjabouley-invn', 'hamelsmu', 'isouza-daitan', 'jajajasalu2',
- 'jakewilkins', 'jdufresne', 'jklingen92', 'jkufro', 'jvanbrunschot',
- 'mabrowning', 'mstuttgart', 'murphyzhao', 'nagapavan', 'ohmkay',
- 'physikerwelt', 'res0nance', 's-t-e-v-e-n-k', 'sfdye', 'sharkykh', 'shibasisp',
- 'singh811', 'suryasr007', 'zume2020']
-users2 = []
-#for user in repo.get_contributors():
+df = pd.DataFrame(columns=["Author", "Date", "Commits"])    # dataframe to hold commits
+users = ['Ferada', 'Hanaasagi', 'adambaratz', 'blatinier',
+ 'nagapavan', 's-t-e-v-e-n-k', 'sfdye']
+
+# count number of commits for each user who committed over past year
 for user in users:
     for commit in repo.get_commits():
         author_date = commit.commit.author.date
@@ -56,22 +33,20 @@ for user in users:
             else:
                 break
         except AttributeError:
-            # author_name = "None"
             if author_date >= d1:
                 commit_total += 1
                 print(",", author_date, commit_total)
     commit_total = 0
 
 max_val = 0
-
+# adjust commit total
 for user in users:
     mask = (df['Author'] == user)
     max_val = df.loc[df['Author'] == user].Commits.max()
     df['Commits'][mask] = abs(df['Commits'] - max_val)
 print(df)
 
-# print(np.unique(users))
-
+# draw graph
 fig = px.line(df, x="Date", y="Commits",
               line_group="Author", color = "Author")
 
@@ -105,5 +80,5 @@ fig.update_layout(
         type="date"
     )
 )
-
+# display graph locally
 plot(fig)
