@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 from plotly.offline import plot
 import psutil as pt
 import plotly.graph_objects as go
@@ -30,7 +31,7 @@ repo = g.get_repo("PyGithub/PyGithub")
 #        except AttributeError:
 #            print("None", author_date, count)
 
-df = pd.DataFrame(columns=["Author", "Date", "Commit Count"])
+df = pd.DataFrame(columns=["Author", "Date", "Commits"])
 users = ['FFY00', 'Ferada', 'Hanaasagi', 'KevinRickard', 'TechnicalPirate',
  'TomasTomecek', 'YakDriver', 'adambaratz', 'alexmusa', 'bachp', 'blatinier',
  'brownierin', 'bycEEE', 'cclauss', 'chanukov', 'chillipeper', 'cuichenli',
@@ -39,10 +40,9 @@ users = ['FFY00', 'Ferada', 'Hanaasagi', 'KevinRickard', 'TechnicalPirate',
  'mabrowning', 'mstuttgart', 'murphyzhao', 'nagapavan', 'ohmkay',
  'physikerwelt', 'res0nance', 's-t-e-v-e-n-k', 'sfdye', 'sharkykh', 'shibasisp',
  'singh811', 'suryasr007', 'zume2020']
-
-#repo.get_contributors()
+users2 = []
+#for user in repo.get_contributors():
 for user in users:
-  #  print(user)
     for commit in repo.get_commits():
         author_date = commit.commit.author.date
         try:
@@ -51,7 +51,7 @@ for user in users:
                 if user == author_name:
                     commit_total += 1
                     print(author_name, author_date, commit_total)
-                    new_row = {'Author': author_name, "Date": author_date, "Commit Count": commit_total}
+                    new_row = {'Author': author_name, "Date": author_date, "Commits": commit_total}
                     df = df.append(new_row, ignore_index=True)
             else:
                 break
@@ -62,11 +62,48 @@ for user in users:
                 print(",", author_date, commit_total)
     commit_total = 0
 
+max_val = 0
+
+for user in users:
+    mask = (df['Author'] == user)
+    max_val = df.loc[df['Author'] == user].Commits.max()
+    df['Commits'][mask] = abs(df['Commits'] - max_val)
+print(df)
+
 # print(np.unique(users))
 
-fig = px.line(df, x="Date", y="Commit Count",
-              line_group="Author")
+fig = px.line(df, x="Date", y="Commits",
+              line_group="Author", color = "Author")
+
+# add slider to view commits over 1 month, 3 months, 6 months or 1 year
+fig.update_layout(
+    xaxis=go.layout.XAxis(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1,
+                     label="1m",
+                     step="month",
+                     stepmode="backward"),
+                dict(count=3,
+                     label="3m",
+                     step="month",
+                     stepmode="backward"),
+                dict(count=6,
+                     label="6m",
+                     step="month",
+                     stepmode="backward"),
+                dict(count=1,
+                     label="1y",
+                     step="year",
+                     stepmode="backward"),
+                dict(step="all")
+            ])
+        ),
+        rangeslider=dict(
+            visible=True
+        ),
+        type="date"
+    )
+)
 
 plot(fig)
-#fig.write_image("pictures/fig1.png")
-#fig.show()
