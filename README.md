@@ -22,12 +22,20 @@ Psutil (Library)</br>
 GitHub (GitHub access token, GitHub API, Data for the graph)</br>
 
 ## Installation and Setup
+Method A:</br>
 1. Install Python, Pycharm and pip.</br>
 2. Clone the file githubAccess.</br>
 3. Open githubAccess in Pycharm.,/br>
 4. Install the libraries listed above using pip.</br>
   a) Open the command line and type in "pip install <name of library>".</br>
-5. Run githubAccess in order to gather the data and generate the graph.</br>
+5. Obtain a GitHub access token from GitHub
+6. Run githubAccess.</br>
+
+Method B:</br>
+1. Install pip.</br>
+2. Install Jupyter Notebook through the command line using the command "pip install jupyter notebook".</br>
+3. Open a new command window and open Jupyter Notebook using the command "jupyter notebook".</br>
+4. Create and run a notebook based on the file githubAccess.</br>
   
 ## Commits
 [Initial commit for GitHub Access](https://github.com/TheCsWorld/Github-Access/commit/a1e3224b51cf9e9006a83d3aaa4250134600e671)</br>
