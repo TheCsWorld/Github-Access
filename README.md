@@ -20,6 +20,6 @@ Plotly (Library)</br>
 Psutil (Library)</br>
 GitHub (GitHub access token, GitHub API, Data for the graph)</br>
 
-[Initial commit for GitHub Access](https://github.com/TheCsWorld/Github-Access/commit/a1e3224b51cf9e9006a83d3aaa4250134600e671)
-[Final code commit]()
+[Initial commit for GitHub Access](https://github.com/TheCsWorld/Github-Access/commit/a1e3224b51cf9e9006a83d3aaa4250134600e671)</br>
+[Final code commit](https://github.com/TheCsWorld/Github-Access/commit/493a6ad9f503c310fc642c89d7f7c92ff3fcca9f)
 
