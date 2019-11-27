@@ -4,7 +4,7 @@ Chloe Conneely 17323080
 ![Graph 1 Year](https://github.com/TheCsWorld/Github-Access/blob/master/Graph%201%20year.png)
 
 This graph displays the contributors to a the PyGithub repo over the period 1st November 2018 to 26th November 2019.</br>
-The purpose of theis graph is to determine the contributors who commits most frequently to a repo as shown over a period of time.
+The purpose of this graph is to determine the contributors who commits most frequently to a repo as shown over a period of time.
 
 ## Description
 Initially, I tried to use the linux repo but with over 20,000 contributors and over 800,000 commits, it was not ideal with regard to time. Instead I used the PyGithub repo which has 190 contributors and 1,725 commits.</br>
@@ -21,7 +21,7 @@ Plotly (Library)</br>
 Psutil (Library)</br>
 GitHub (GitHub access token, GitHub API, Data for the graph)</br>
 
-##Installation and Setup
+## Installation and Setup
 1. Install Python, Pycharm and pip.</br>
 2. Clone the file githubAccess.</br>
 3. Open githubAccess in Pycharm.,/br>
@@ -29,7 +29,7 @@ GitHub (GitHub access token, GitHub API, Data for the graph)</br>
   a) Open the command line and type in "pip install <name of library>".</br>
 5. Run githubAccess in order to gather the data and generate the graph.</br>
   
-##Commits
+## Commits
 [Initial commit for GitHub Access](https://github.com/TheCsWorld/Github-Access/commit/a1e3224b51cf9e9006a83d3aaa4250134600e671)</br>
 [Final code commit](https://github.com/TheCsWorld/Github-Access/commit/493a6ad9f503c310fc642c89d7f7c92ff3fcca9f)
 
