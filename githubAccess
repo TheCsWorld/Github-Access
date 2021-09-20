@@ -10,7 +10,7 @@ author_name = "a"
 d1 = datetime.datetime(2018, 11, 1)
 # twbs/bootstrap
 # nodejs/node
-g = Github("c1e713fb39625fecfeef7d7224b69fa0343b2c8d")
+g = Github("")
 
 repo = g.get_repo("PyGithub/PyGithub")
 
